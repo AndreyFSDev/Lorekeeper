@@ -1,0 +1,3 @@
+This AI runs on a machine with 8 GB VRAM and 32 GB RAM.
+Models are quantized to Q4_K_M to fit in VRAM.
+Vision and text models run sequentially, not in parallel.

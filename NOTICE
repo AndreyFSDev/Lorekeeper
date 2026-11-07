@@ -1,0 +1,18 @@
+Cloufam
+Copyright 2026 Andrey Shkenev (AndreyFSDev)
+
+Author:      https://github.com/AndreyFSDev
+Repository:  https://github.com/AndreyFSDev/Cloufam
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. The full license text is in the LICENSE file.
+
+THIRD-PARTY CODE SHIPPED IN THIS REPOSITORY
+-------------------------------------------
+
+src-tauri/moonlit/ — Moonlit Echoes theme for SillyTavern by Rivelle,
+https://github.com/RivelleDays/SillyTavern-MoonlitEchoesTheme, AGPL-3.0
+(see src-tauri/moonlit/LICENSE).
+

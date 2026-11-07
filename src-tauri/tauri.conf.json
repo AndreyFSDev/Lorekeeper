@@ -1,0 +1,53 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Cloufam",
+  "version": "1.2.80",
+  "identifier": "app.localchatbot.desktop",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://127.0.0.1:5343",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Cloufam",
+        "width": 1100,
+        "height": 740,
+        "minWidth": 900,
+        "minHeight": 620,
+        "resizable": true,
+        "decorations": false,
+        "shadow": true,
+        "additionalBrowserArgs": "--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection --autoplay-policy=no-user-gesture-required --lang=ru-RU"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' ipc: http://ipc.localhost; font-src 'self' data:"
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQzMkM5M0Q5NUNCMTY2OTAKUldTUVpyRmMyWk1zUThBTy9GOXFSVng3NVlJVGpsQXJWK0VpZnREdWU3TW5pcG5INzlxMkRFWCsK",
+      "endpoints": [
+        "https://github.com/AndreyFSDev/cloufam-releases/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "quiet"
+      }
+    }
+  },
+  "bundle": {
+    "active": false,
+    "copyright": "AGPL-3.0-or-later",
+    "shortDescription": "Cloufam — local roleplay studio",
+    "longDescription": "Cloufam — a fully local roleplay studio: SillyTavern, Ollama and ComfyUI tuned for your GPU in one window. Models and data stay on your machine.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/icon.ico"
+    ]
+  }
+}
+

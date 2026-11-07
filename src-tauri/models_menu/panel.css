@@ -1,0 +1,339 @@
+/* Cloufam model menu inside SillyTavern. Same material as the theme:
+   liquid glass, sapphire → indigo. The geometry is its own, this is our UI. */
+
+/* The overlay stretches to the window with explicit sizes, not `inset: 0`: on the
+   SillyTavern page `html` carries `transform` and `perspective`, which make `html`
+   a containing block for `position: fixed`, and stretching to it gave zero
+   height — the panel drifted past the top edge of the window. */
+#lk-models-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  box-sizing: border-box;
+  padding: 16px;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 8, 20, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: var(--mainFontFamily, 'Noto Sans', sans-serif);
+}
+
+#lk-models-overlay.lk-hidden {
+  display: none;
+}
+
+/* The panel always fits the window: tall content scrolls inside the list. */
+#lk-models-panel {
+  width: min(880px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  color: #e8eefc;
+  background-color: rgba(10, 16, 38, 0.72);
+  background-image: linear-gradient(135deg, rgba(96, 138, 230, 0.26) 0%, rgba(60, 52, 148, 0.46) 52%, rgba(10, 14, 34, 0.66) 100%);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(126, 164, 255, 0.28);
+  border-radius: 16px;
+  box-shadow: 0 28px 70px rgba(2, 4, 16, 0.62);
+  overflow: hidden;
+  animation: lk-models-in 0.22s ease;
+}
+
+@keyframes lk-models-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}
+
+#lk-models-panel header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(126, 164, 255, 0.18);
+}
+
+#lk-models-panel .lk-models-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+#lk-models-panel .lk-models-sub {
+  font-size: 12px;
+  color: #9fb2d8;
+  margin-top: 2px;
+}
+
+#lk-models-panel .lk-models-spacer {
+  flex: 1;
+}
+
+#lk-models-panel .lk-models-close,
+#lk-models-panel .lk-models-icon-btn {
+  background: rgba(126, 164, 255, 0.12);
+  border: 1px solid rgba(126, 164, 255, 0.24);
+  color: #dbe6ff;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#lk-models-panel .lk-models-close:hover,
+#lk-models-panel .lk-models-icon-btn:hover {
+  background: rgba(126, 164, 255, 0.22);
+  border-color: rgba(126, 164, 255, 0.45);
+}
+
+#lk-models-hardware {
+  flex: 0 0 auto;
+  padding: 12px 20px;
+  font-size: 12.5px;
+  color: #b9c8e8;
+  border-bottom: 1px solid rgba(126, 164, 255, 0.14);
+  line-height: 1.55;
+}
+
+#lk-models-hardware b {
+  color: #e8eefc;
+}
+
+#lk-models-tabs {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px 6px;
+}
+
+#lk-models-tabs button {
+  background: rgba(126, 164, 255, 0.10);
+  border: 1px solid rgba(126, 164, 255, 0.20);
+  color: #cbd8f4;
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+#lk-models-tabs button.lk-active {
+  background: linear-gradient(135deg, rgba(122, 172, 248, 0.34), rgba(86, 74, 200, 0.40));
+  border-color: rgba(147, 197, 253, 0.6);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28);
+}
+
+#lk-models-list {
+  /* min-height: 0 — otherwise the flex item refuses to shrink and the list
+     pushes the panel past the window instead of scrolling itself. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lk-model-card {
+  border: 1px solid rgba(126, 164, 255, 0.18);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background-color: rgba(12, 18, 42, 0.42);
+  background-image: linear-gradient(135deg, rgba(122, 172, 248, 0.10) 0%, rgba(60, 52, 148, 0.16) 60%, rgba(10, 14, 34, 0.22) 100%);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.lk-model-card:hover {
+  border-color: rgba(147, 197, 253, 0.42);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(3, 6, 22, 0.42);
+}
+
+.lk-model-card.lk-installed {
+  border-color: rgba(52, 211, 153, 0.34);
+}
+
+.lk-model-card.lk-active {
+  border-color: rgba(56, 189, 248, 0.66);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.28), 0 16px 34px rgba(8, 20, 50, 0.46);
+}
+
+.lk-model-card .lk-model-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.lk-model-card .lk-model-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f2f6ff;
+}
+
+.lk-model-card .lk-model-tag {
+  font-size: 11.5px;
+  color: #93a6cc;
+  font-family: var(--monoFontFamily, monospace);
+  margin-top: 2px;
+  word-break: break-all;
+}
+
+.lk-model-card .lk-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.lk-chip {
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(126, 164, 255, 0.28);
+  color: #c7d6f5;
+  background: rgba(126, 164, 255, 0.10);
+  white-space: nowrap;
+}
+
+.lk-chip.lk-chip-active { border-color: rgba(56, 189, 248, 0.6); color: #bae6fd; background: rgba(56, 189, 248, 0.14); }
+.lk-chip.lk-chip-installed { border-color: rgba(52, 211, 153, 0.5); color: #a7f3d0; background: rgba(52, 211, 153, 0.12); }
+.lk-chip.lk-chip-rec { border-color: rgba(250, 204, 21, 0.5); color: #fde68a; background: rgba(250, 204, 21, 0.12); }
+
+.lk-model-card .lk-model-desc {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c3d0ea;
+}
+
+.lk-model-card .lk-model-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #9fb2d8;
+}
+
+.lk-model-card .lk-model-facts b {
+  color: #e2eafb;
+  font-weight: 600;
+}
+
+.lk-model-card .lk-model-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.lk-btn {
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid rgba(126, 164, 255, 0.26);
+  background: rgba(126, 164, 255, 0.12);
+  color: #dbe6ff;
+  transition: all 0.15s ease;
+}
+
+.lk-btn:hover:not(:disabled) {
+  background: rgba(126, 164, 255, 0.22);
+  border-color: rgba(147, 197, 253, 0.5);
+}
+
+.lk-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lk-btn.lk-btn-primary {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.9), rgba(79, 70, 229, 0.9));
+  border-color: rgba(147, 197, 253, 0.7);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.32);
+}
+
+.lk-btn.lk-btn-done {
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #a7f3d0;
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.lk-model-progress {
+  margin-top: 12px;
+}
+
+.lk-model-progress .lk-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(9, 14, 34, 0.6);
+  border: 1px solid rgba(126, 164, 255, 0.2);
+  overflow: hidden;
+}
+
+.lk-model-progress .lk-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #6366f1 60%, #a855f7);
+  background-size: 200% 100%;
+  animation: lk-flow 2.4s linear infinite;
+  transition: width 0.35s ease;
+}
+
+@keyframes lk-flow {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
+
+.lk-model-progress .lk-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #a9bade;
+}
+
+.lk-model-error {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: #fca5a5;
+}
+
+.lk-skeleton {
+  height: 118px;
+  border-radius: 14px;
+  border: 1px solid rgba(126, 164, 255, 0.12);
+  background: linear-gradient(100deg, rgba(126, 164, 255, 0.06) 30%, rgba(126, 164, 255, 0.16) 50%, rgba(126, 164, 255, 0.06) 70%);
+  background-size: 220% 100%;
+  animation: lk-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes lk-shimmer {
+  from { background-position: 130% 0; }
+  to { background-position: -30% 0; }
+}
+
+#lk-models-note {
+  flex: 0 0 auto;
+  padding: 10px 20px 16px;
+  font-size: 12px;
+  color: #9fb2d8;
+  border-top: 1px solid rgba(126, 164, 255, 0.14);
+}
+

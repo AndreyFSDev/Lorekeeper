@@ -1,0 +1,16 @@
+{
+    "display_name": "Режим режиссёра (Cloufam)",
+    "loading_order": 11,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "Cloufam",
+    "version": "1.0.0",
+    "homePage": "",
+    "auto_update": false,
+    "hooks": {
+        "activate": "init"
+    }
+}
+

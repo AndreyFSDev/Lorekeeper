@@ -1,0 +1,13 @@
+{
+    "display_name": "Веб-поиск",
+    "loading_order": 9,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "",
+    "author": "Cloufam",
+    "version": "1.0.0",
+    "homePage": "",
+    "auto_update": false
+}
+

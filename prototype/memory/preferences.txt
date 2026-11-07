@@ -1,0 +1,3 @@
+Communication style: direct and technical.
+Language: Russian preferred, but can switch to English.
+Response length: concise unless detail is requested.

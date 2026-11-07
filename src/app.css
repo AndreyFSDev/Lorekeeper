@@ -1,0 +1,408 @@
+:root {
+  /* Graphite palette. Components take colors only from here: the old names
+     (--lg-*, --glass-*, --aurora) are kept as aliases so the settings window and
+     the guide move to the same palette without touching every rule. */
+  --bg: #15171b;
+  --bg-sidebar: #1b1d21;
+  --surface: #1b1d21;
+  --surface-2: #212327;
+  --surface-3: #27292d;
+  --surface-hover: #212327;
+  --border: #232529;
+  --border-strong: #313337;
+  --text: #dbdee3;
+  --text-dim: #96989d;
+  --text-faint: #787a7f;
+  --brand: #4e99a3;
+  --on-primary: #15171b;
+  /* The primary button is light gray, not white: pure white blew out on graphite. */
+  --primary: #e6e7ea;
+  --primary-hover: #f0f1f3;
+  --ok: #539e55;
+  --ok-soft: rgba(83, 158, 85, 0.12);
+  --warn: #d57141;
+  --warn-soft: rgba(213, 113, 65, 0.12);
+  --err: #dc6973;
+  --err-soft: rgba(220, 105, 115, 0.12);
+  --focus-ring: rgba(255, 255, 255, 0.14);
+  --overlay: rgba(21, 23, 27, 0.7);
+  --menu-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  /* Depth following the Perplexity reference: graphite a bit lighter than the background, a thin light edge
+     on top and a soft shadow below. A bright gradient and white highlight read as blown out. */
+  --btn-fill: linear-gradient(180deg, #2d2f33 0%, #27292d 100%);
+  --btn-fill-hover: linear-gradient(180deg, #33353a 0%, #2d2f33 100%);
+  --btn-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --btn-shadow: var(--btn-bevel), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --primary-fill: linear-gradient(180deg, #e3e5e9 0%, #d5d8dd 100%);
+  --primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --font: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --sidebar-width: 272px;
+
+  --bg-panel: var(--surface);
+  --bg-input: var(--surface-2);
+  /* Border and focus accent is muted gray: the former alias to the white primary
+     button outlined selected cards in bright white. */
+  --accent: #6c707a;
+  --accent2: #c9cacf;
+  --accent-strong: #80848e;
+  --accent-soft: rgba(255, 255, 255, 0.08);
+  --accent-glow: rgba(255, 255, 255, 0.06);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --glass-blur: 0px;
+  --glass-gradient: var(--surface);
+  --glass-gradient-soft: var(--surface);
+  --glass-edge: var(--border);
+  --glass-shadow: none;
+  --glass-blur-strong: 0px;
+  --glass-saturate: 100%;
+  --aurora: none;
+  --lg-fill: var(--surface);
+  --lg-fill-soft: var(--surface);
+  --lg-fill-strong: var(--surface-2);
+  --lg-fill-inset: var(--surface-2);
+  --lg-blur: 0px;
+  --lg-saturate: 100%;
+  --lg-brightness: 1;
+  --lg-lens: none;
+  --lg-edge: transparent;
+  --lg-edge-dim: transparent;
+  --lg-rim: var(--border);
+  --lg-shadow: none;
+  --lg-shadow-hover: none;
+  --lg-radius: var(--radius);
+  --lg-radius-inner: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  background: var(--btn-fill);
+  box-shadow: var(--btn-shadow);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.08s;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  box-shadow: var(--btn-shadow), 0 0 0 3px var(--focus-ring);
+}
+
+button:hover {
+  background: var(--btn-fill-hover);
+  border-color: var(--border-strong);
+}
+
+button:active {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+button.primary {
+  background: var(--primary-fill);
+  box-shadow: var(--primary-shadow);
+  border-color: transparent;
+  color: var(--on-primary);
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background: var(--primary-hover);
+}
+
+/* The system blue on radios and checkboxes clashed with the graphite. */
+input[type='radio'],
+input[type='checkbox'] {
+  accent-color: var(--accent2);
+}
+
+/* Disabled primary button is dark graphite: translucent white
+   looked blown out rather than disabled. */
+button.primary:disabled {
+  opacity: 1;
+  background: var(--surface-3);
+  border-color: var(--border);
+  color: var(--text-faint);
+}
+
+button.ghost {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+  color: var(--text-dim);
+}
+
+button.ghost:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+button.icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='password'],
+select,
+textarea {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-faint);
+}
+
+/* Field focus is visible from the cursor: the owner treats the outline and ring as a defect. */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.progress-track {
+  height: 6px;
+  background: var(--surface-3);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.badge.ok {
+  background: var(--ok-soft);
+  border-color: transparent;
+  color: var(--ok);
+}
+
+.badge.warn {
+  background: var(--warn-soft);
+  border-color: transparent;
+  color: var(--warn);
+}
+
+.badge.err {
+  background: var(--err-soft);
+  border-color: transparent;
+  color: var(--err);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--surface-3);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: -2px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Surfaces shared by the wizard, launcher and settings window: components define
+   layout, the material lives here, otherwise scoped copies drift. */
+.card,
+.model-card,
+.param-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.settings-header {
+  background: var(--bg);
+  border: 0 solid var(--border);
+  border-bottom-width: 1px;
+}
+
+.stat-pill {
+  background: var(--btn-fill);
+  box-shadow: var(--btn-shadow);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+}
+
+.model-card:hover,
+.card:hover {
+  border-color: var(--border-strong);
+}
+
+/* Popup menu: selected item with a checkmark, hint on the right. */
+.menu {
+  position: absolute;
+  z-index: 50;
+  min-width: 240px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  box-shadow: var(--menu-shadow);
+  animation: fadeUp 0.12s ease;
+}
+
+.menu-item {
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 14px;
+  text-align: left;
+}
+
+.menu-item:hover,
+.menu-item:focus-visible {
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+.menu-item:active {
+  box-shadow: none;
+}
+
+.menu-item .menu-icon {
+  width: 16px;
+  color: var(--text-dim);
+  display: inline-flex;
+}
+
+.menu-item .menu-label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.menu-item .menu-hint {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.menu-item .menu-check {
+  width: 16px;
+  color: var(--text);
+}
+
+.menu-sep {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--border);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

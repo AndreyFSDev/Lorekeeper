@@ -1,0 +1,59 @@
+[package]
+name = "cloufam"
+version = "1.2.80"
+description = "Cloufam — local roleplay environment with memory and vision"
+license = "AGPL-3.0-or-later"
+edition = "2021"
+
+[lib]
+name = "local_chatbot_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# `protocol-asset` снят вместе с `assetProtocol` в tauri.conf.json: протокол
+# не имел ни одного потребителя (V-21), а tauri-build сверяет фичи с allowlist.
+tauri = { version = "2", features = ["custom-protocol", "tray-icon"] }
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# TLS — системный (schannel): на машинах с локальным перехватом сертификатов
+# встроенные корни rustls не проходят проверку, а хранилище Windows проходит.
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "native-tls", "system-proxy"] }
+tokio = { version = "1", features = ["process", "io-util", "fs", "sync", "time", "net"] }
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "tokio"] }
+bytes = "1"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+futures-util = "0.3"
+sysinfo = { version = "0.30", default-features = false }
+# Проверка слоёв модели по sha256 при прямом скачивании из реестра Ollama.
+sha2 = "0.10"
+# Проверка minisign-подписи скачанного обновления (ключ — в tauri.conf.json).
+minisign-verify = "0.2"
+base64 = "0.22"
+# %XX в query string: клиент шлёт encodeURIComponent(avatar).
+percent-encoding = "2"
+# 2.7.2 — последняя версия под tauri 2.11: новее тянет tauri 2.12 и новый wry.
+tauri-plugin-dialog = "=2.7.2"
+
+[target.'cfg(windows)'.dependencies]
+webview2-com = "0.38"
+windows-core = "0.61"
+windows = { version = "0.61", features = ["Win32_Storage_FileSystem", "Win32_System_SystemInformation", "Win32_Graphics_Dxgi", "Win32_Graphics_Dxgi_Common", "Win32_Globalization"] }
+
+# panic = "abort" не ставим: Exit-хук и очередь загрузок держат catch_unwind,
+# паники фоновых задач tokio ловятся через JoinHandle; с abort любая паника
+# гасила бы процесс, не дойдя до гашения дочерних Ollama и node.
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+
+# sha256 по многогигабайтным слоям моделей — единственный счётный хот-путь,
+# размер ради него не экономим.
+[profile.release.package.sha2]
+opt-level = 3
+

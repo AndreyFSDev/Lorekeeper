@@ -1,0 +1,85 @@
+diff --git a/index.js b/index.js
+--- a/index.js
++++ b/index.js
+@@ -50,11 +50,20 @@ function propertyIsUnsafe(target, key) {
+ 			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+ }
+ 
++function setOwnProperty(target, key, value) {
++	Object.defineProperty(target, key, {
++		value: value,
++		enumerable: true,
++		configurable: true,
++		writable: true
++	})
++}
++
+ function mergeObject(target, source, options) {
+ 	var destination = {}
+ 	if (options.isMergeableObject(target)) {
+ 		getKeys(target).forEach(function(key) {
+-			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options)
++			setOwnProperty(destination, key, cloneUnlessOtherwiseSpecified(target[key], options))
+ 		})
+ 	}
+ 	getKeys(source).forEach(function(key) {
+@@ -63,9 +72,9 @@ function mergeObject(target, source, options) {
+ 		}
+ 
+ 		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+-			destination[key] = getMergeFunction(key, options)(target[key], source[key], options)
++			setOwnProperty(destination, key, getMergeFunction(key, options)(target[key], source[key], options))
+ 		} else {
+-			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options)
++			setOwnProperty(destination, key, cloneUnlessOtherwiseSpecified(source[key], options))
+ 		}
+ 	})
+ 	return destination
+diff --git a/dist/cjs.js b/dist/cjs.js
+--- a/dist/cjs.js
++++ b/dist/cjs.js
+@@ -80,7 +80,7 @@
+ 	var destination = {};
+ 	if (options.isMergeableObject(target)) {
+ 		getKeys(target).forEach(function(key) {
+-			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
++			Object.defineProperty(destination, key, { value: cloneUnlessOtherwiseSpecified(target[key], options), enumerable: true, configurable: true, writable: true });
+ 		});
+ 	}
+ 	getKeys(source).forEach(function(key) {
+@@ -89,9 +89,9 @@
+ 		}
+ 
+ 		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+-			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
++			Object.defineProperty(destination, key, { value: getMergeFunction(key, options)(target[key], source[key], options), enumerable: true, configurable: true, writable: true });
+ 		} else {
+-			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
++			Object.defineProperty(destination, key, { value: cloneUnlessOtherwiseSpecified(source[key], options), enumerable: true, configurable: true, writable: true });
+ 		}
+ 	});
+ 	return destination
+diff --git a/dist/umd.js b/dist/umd.js
+--- a/dist/umd.js
++++ b/dist/umd.js
+@@ -84,7 +84,7 @@
+ 		var destination = {};
+ 		if (options.isMergeableObject(target)) {
+ 			getKeys(target).forEach(function(key) {
+-				destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
++				Object.defineProperty(destination, key, { value: cloneUnlessOtherwiseSpecified(target[key], options), enumerable: true, configurable: true, writable: true });
+ 			});
+ 		}
+ 		getKeys(source).forEach(function(key) {
+@@ -93,9 +93,9 @@
+ 			}
+ 
+ 			if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+-				destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
++				Object.defineProperty(destination, key, { value: getMergeFunction(key, options)(target[key], source[key], options), enumerable: true, configurable: true, writable: true });
+ 			} else {
+-				destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
++				Object.defineProperty(destination, key, { value: cloneUnlessOtherwiseSpecified(source[key], options), enumerable: true, configurable: true, writable: true });
+ 			}
+ 		});
+ 		return destination

@@ -1,0 +1,967 @@
+/* Cloufam auto-tags: custom obsidian glassmorphism */
+
+#lk-tagger-settings .lk-tagger-settings-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+#lk-tagger-settings .lk-tagger-settings-hint,
+#lk-tagger-settings .lk-tagger-settings-error,
+#cloufam-md-import-modal .lk-tagger-settings-error {
+    font-size: 0.85em;
+    color: #94a3b8;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+#lk-tagger-settings .lk-tagger-settings-error,
+#cloufam-md-import-modal .lk-tagger-settings-error {
+    color: #f87171;
+    font-weight: 500;
+}
+
+#lk-tagger-settings .lk-tagger-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+    cursor: pointer;
+}
+
+#lk-tagger-settings .lk-tagger-check input[type='checkbox'] {
+    accent-color: #3b82f6;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+#lk-tagger-settings .lk-tagger-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 6px 0;
+}
+
+#lk-tagger-settings .lk-tagger-setting-row select,
+#lk-tagger-settings .lk-tagger-setting-row input {
+    max-width: 60%;
+    background: rgba(24, 30, 46, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 8px;
+    color: #e7eaf3;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+#cloufam-tagger-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: lkFadeIn 0.2s ease-out;
+}
+
+.lk-tagger-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 6, 12, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.lk-tagger-dialog {
+    position: relative;
+    width: min(780px, 92vw);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 24px;
+    border-radius: 16px;
+    background: rgba(15, 19, 32, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: #e7eaf3;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(59, 130, 246, 0.16);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 0.95em;
+    animation: lkCardAppear 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lk-tagger-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #ffffff;
+}
+
+.lk-tagger-close {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: all 0.15s;
+}
+
+.lk-tagger-close:hover {
+    opacity: 1;
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.lk-tagger-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px 14px;
+    background: rgba(22, 26, 40, 0.55);
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.lk-tagger-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #94a3b8;
+}
+
+.lk-tagger-controls select,
+.lk-tagger-controls input[type='number'] {
+    flex: 1;
+    min-width: 0;
+    background: rgba(24, 30, 46, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 8px;
+    color: #e7eaf3;
+    padding: 6px 10px;
+    font: inherit;
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lk-tagger-controls select:focus,
+.lk-tagger-controls input[type='number']:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.lk-tagger-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lk-tagger-check input[type='checkbox'] {
+    accent-color: #3b82f6;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.lk-tagger-model-line {
+    font-size: 0.88em;
+    color: #94a3b8;
+}
+
+.lk-tagger-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.9em;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.lk-tagger-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.lk-tagger-mini {
+    cursor: pointer;
+    color: #60a5fa;
+    font-size: 0.85em;
+    transition: color 0.15s;
+}
+
+.lk-tagger-mini:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.lk-tagger-list {
+    flex: 1;
+    min-height: 140px;
+    overflow-y: auto;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: rgba(10, 14, 24, 0.75);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.lk-tagger-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.lk-tagger-row:hover {
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.lk-tagger-name {
+    min-width: 150px;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.lk-tagger-tags {
+    flex: 1;
+    color: #94a3b8;
+    font-size: 0.88em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lk-tagger-tags.empty {
+    opacity: 0.55;
+    font-style: italic;
+}
+
+.lk-tagger-note {
+    font-size: 0.85em;
+    color: #fbbf24;
+    font-weight: 500;
+}
+
+.lk-tagger-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lk-tagger-progress-track {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(29, 35, 48, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    overflow: hidden;
+}
+
+.lk-tagger-progress-track > div {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #2563eb, #60a5fa, #2563eb);
+    background-size: 200% 100%;
+    border-radius: 999px;
+    transition: width 0.25s ease;
+    animation: shimmer 2s linear infinite;
+}
+
+#lk-tagger-progress-meta {
+    font-size: 0.85em;
+    color: #94a3b8;
+}
+
+.lk-tagger-log {
+    height: 110px;
+    overflow-y: auto;
+    font-size: 11.5px;
+    font-family: 'Cascadia Code', Consolas, monospace;
+    background: rgba(7, 10, 18, 0.85);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+    color: #cbd5e1;
+}
+
+.lk-tagger-log-line.ok {
+    color: #34d399;
+}
+
+.lk-tagger-log-line.warn {
+    color: #fbbf24;
+}
+
+.lk-tagger-log-line.err {
+    color: #f87171;
+}
+
+.lk-tagger-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.lk-tagger-button {
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13.5px;
+    border: none;
+    box-shadow: 0 4px 18px rgba(59, 130, 246, 0.45);
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.lk-tagger-button:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 24px rgba(96, 165, 250, 0.6);
+}
+
+.lk-tagger-button:active {
+    transform: scale(0.98);
+}
+
+.lk-tagger-button.secondary {
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #cbd5e1;
+    box-shadow: none;
+}
+
+.lk-tagger-button.secondary:hover {
+    background: rgba(45, 55, 75, 0.8);
+    color: #ffffff;
+    border-color: rgba(96, 165, 250, 0.4);
+}
+
+.lk-tagger-button.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Character relationships ──────────────────────────────────────────────────── */
+
+#cloufam-relationships-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: lkFadeIn 0.2s ease-out;
+}
+
+.lk-relationships-content {
+    min-height: 200px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.lk-relationships-loading,
+.lk-relationships-error,
+.lk-relationships-empty {
+    padding: 24px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.95em;
+}
+
+.lk-relationships-error {
+    color: #f87171;
+}
+
+.lk-relationships-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.lk-relationships-section {
+    margin-bottom: 20px;
+}
+
+.lk-relationships-section-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lk-relationships-section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(180deg, #3b82f6, #60a5fa);
+    border-radius: 2px;
+}
+
+.lk-relationships-select {
+    width: 100%;
+    background: rgba(24, 30, 46, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 8px;
+    color: #e7eaf3;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lk-relationships-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Inter-character relationships */
+
+.lk-relationships-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.lk-relationships-row:hover {
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.lk-relationships-name {
+    min-width: 140px;
+    font-weight: 500;
+    color: #f8fafc;
+    font-size: 0.9em;
+}
+
+.lk-relationships-bar-container {
+    flex: 1;
+    height: 10px;
+    background: rgba(29, 35, 48, 0.7);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.lk-relationships-bar {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+    min-width: 2px;
+}
+
+.lk-relationships-score {
+    min-width: 40px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #e2e8f0;
+}
+
+.lk-relationships-label {
+    min-width: 80px;
+    font-size: 0.8em;
+    color: #94a3b8;
+    text-align: right;
+}
+
+/* Live state (for the companion) */
+
+.lk-relationships-state-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+}
+
+.lk-relationships-state-name {
+    min-width: 90px;
+    font-size: 0.88em;
+    color: #94a3b8;
+}
+
+.lk-relationships-state-bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(29, 35, 48, 0.7);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.lk-relationships-state-bar {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+    min-width: 2px;
+}
+
+.lk-relationships-state-value {
+    min-width: 35px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.88em;
+    color: #e2e8f0;
+}
+
+/* ── RPG panel ─────────────────────────────────────────────────────────── */
+
+#cloufam-rpg-modal,
+#cloufam-changelog-modal,
+#cloufam-md-import-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: lkFadeIn 0.2s ease-out;
+}
+
+.lk-rpg-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 8px 12px 0;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.lk-rpg-tab {
+    padding: 6px 12px;
+    font-size: 0.85em;
+    color: #94a3b8;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.lk-rpg-tab:hover {
+    color: #e2e8f0;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.lk-rpg-tab.active {
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.15);
+    border-bottom: 2px solid #60a5fa;
+}
+
+.lk-rpg-tab-panel {
+    padding: 12px;
+    min-height: 120px;
+}
+
+.lk-rpg-loading,
+.lk-rpg-empty,
+.lk-rpg-error {
+    text-align: center;
+    padding: 24px;
+    color: #94a3b8;
+    font-size: 0.9em;
+}
+
+.lk-rpg-error { color: #f87171; }
+
+.lk-rpg-section {
+    margin-bottom: 12px;
+}
+
+.lk-rpg-label {
+    font-size: 0.8em;
+    color: #94a3b8;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lk-rpg-value {
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 1.05em;
+}
+
+.lk-rpg-desc {
+    color: #cbd5e1;
+    font-size: 0.9em;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.lk-rpg-meta {
+    color: #94a3b8;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.lk-rpg-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.lk-rpg-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 999px;
+    font-size: 0.8em;
+    color: #93c5fd;
+}
+
+.lk-rpg-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.lk-rpg-stat-name {
+    min-width: 100px;
+    font-size: 0.88em;
+    color: #e2e8f0;
+}
+
+.lk-rpg-bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(29, 35, 48, 0.7);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.lk-rpg-bar {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    transition: width 0.3s ease;
+    min-width: 2px;
+}
+
+.lk-rpg-bar-skill { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.lk-rpg-bar-enemy { background: linear-gradient(90deg, #ef4444, #f87171); }
+.lk-rpg-bar-player { background: linear-gradient(90deg, #22c55e, #4ade80); }
+
+.lk-rpg-stat-level {
+    min-width: 35px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.85em;
+    color: #e2e8f0;
+}
+
+.lk-rpg-stat-exp {
+    min-width: 70px;
+    text-align: right;
+    font-size: 0.8em;
+    color: #94a3b8;
+}
+
+.lk-rpg-stat-bind {
+    font-size: 0.75em;
+    color: #64748b;
+}
+
+.lk-rpg-quest {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 8px;
+}
+
+.lk-rpg-quest-title {
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+}
+
+.lk-rpg-quest-desc {
+    color: #cbd5e1;
+    font-size: 0.88em;
+    line-height: 1.4;
+}
+
+.lk-rpg-quest-stage {
+    color: #93c5fd;
+    font-size: 0.85em;
+    margin-top: 6px;
+}
+
+.lk-rpg-quest-progress {
+    margin-top: 6px;
+}
+
+.lk-rpg-quest-progress-track {
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(29, 35, 48, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    overflow: hidden;
+}
+
+.lk-rpg-quest-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    transition: width 0.3s ease;
+    min-width: 2px;
+}
+
+.lk-rpg-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+.lk-rpg-item-name {
+    font-weight: 500;
+    color: #e2e8f0;
+    font-size: 0.9em;
+}
+
+.lk-rpg-item-rarity {
+    font-size: 0.75em;
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.lk-rpg-rarity-common { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
+.lk-rpg-rarity-uncommon { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+.lk-rpg-rarity-rare { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.lk-rpg-rarity-epic { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+.lk-rpg-rarity-legendary { background: rgba(234, 179, 8, 0.2); color: #facc15; }
+
+.lk-rpg-item-desc {
+    color: #94a3b8;
+    font-size: 0.8em;
+    flex: 1;
+    text-align: right;
+}
+
+.lk-rpg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.lk-rpg-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px 12px;
+    margin-bottom: 8px;
+}
+
+.lk-rpg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85em;
+    color: #94a3b8;
+}
+
+.lk-rpg-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(24, 30, 46, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 8px;
+    color: #e7eaf3;
+    padding: 6px 10px;
+    font: inherit;
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lk-rpg-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.lk-rpg-tag-link {
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.lk-rpg-tag-link:hover {
+    background: rgba(59, 130, 246, 0.35);
+    color: #ffffff;
+}
+
+.lk-rpg-result {
+    font-weight: 600;
+    color: #facc15;
+}
+
+.lk-rpg-log {
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 6px 10px;
+    background: rgba(7, 10, 18, 0.6);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 8px;
+    font-size: 0.85em;
+    line-height: 1.45;
+    color: #cbd5e1;
+}
+
+.lk-rpg-log-line + .lk-rpg-log-line {
+    margin-top: 4px;
+}
+
+/* ── "What's new" ──────────────────────────────────────────────────────── */
+
+.lk-changelog-content {
+    padding: 12px;
+}
+
+.lk-changelog-version {
+    margin-bottom: 16px;
+}
+
+.lk-changelog-version:last-child {
+    margin-bottom: 0;
+}
+
+.lk-changelog-version-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.lk-changelog-version-tag {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #60a5fa;
+}
+
+.lk-changelog-date {
+    font-size: 0.85em;
+    color: #94a3b8;
+}
+
+.lk-changelog-item {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    font-size: 0.9em;
+    color: #e2e8f0;
+    line-height: 1.5;
+}
+
+.lk-changelog-item::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #60a5fa;
+}
+
+.lk-changelog-fix {
+    color: #94a3b8;
+    font-size: 0.85em;
+}
+
+.lk-changelog-fix::before {
+    background: #64748b;
+    width: 5px;
+    height: 5px;
+}
+
+/* ── Importing a draft into the card ────────────────────────────────────────── */
+
+/* Its own rule: the director's `.lk-hint` is bound to its card and does not reach here. */
+#cloufam-md-import-modal .lk-hint {
+    font-size: 0.85em;
+    color: #94a3b8;
+    margin: 0 0 8px;
+    line-height: 1.45;
+}
+
+#lk-md-import-draft {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: rgba(15, 23, 42, 0.55);
+    color: #e2e8f0;
+    font: inherit;
+    resize: vertical;
+}
+
+#lk-md-import-result {
+    margin-top: 10px;
+}
+
+.lk-md-import-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 38vh;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.lk-md-import-row {
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(148, 163, 184, 0.08);
+}
+
+.lk-md-import-label {
+    font-weight: 600;
+    font-size: 0.85em;
+    color: #93c5fd;
+    margin-bottom: 2px;
+}
+
+.lk-md-import-value {
+    font-size: 0.9em;
+    color: #cbd5e1;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+

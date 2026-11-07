@@ -1,0 +1,34 @@
+node_modules/
+dist/
+release/
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# Машино-зависимые ресурсы: на этой машине приложение целиком живёт в папке
+# проекта (модели, SillyTavern, рантаймы, данные) — в git это не попадает.
+/runtime/
+/sillytavern/
+/models/
+/comfyui/
+/data/
+/memory/
+/local-chatbot.exe
+/Cloufam.exe
+/Cloufam-Installer.exe
+/uninstall.exe
+
+# Прототип: машино-зависимые артефакты и данные диалогов в репозиторий не попадают
+prototype/.env
+prototype/data/
+__pycache__/
+
+.st-research/
+
+# Набор персонажей (карточки и tags.json) живёт вне репозитория.
+/characters/*
+!/characters/README.md
+/private/
+/stand-out/
+*.log
+
+

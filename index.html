@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloufam</title>
+    <link rel="icon" type="image/png" href="/src-tauri/icons/32x32.png" />
+    <style>
+      /* До монтирования Svelte app.css ещё не загружен: фон и цвета — копия
+         токенов из src/app.css (--bg, --text, --text-dim), иначе сплэш
+         сменяется заставкой со щелчком. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        background: #191a1d;
+        color: #e8e8ea;
+        font-family: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+      }
+      #splash {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      .splash-icon {
+        animation: breathe 2.4s ease-in-out infinite;
+      }
+      .splash-text {
+        color: #9a9ba1;
+        font-size: 14px;
+      }
+      @keyframes breathe {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.55; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .splash-icon { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="splash">
+      <img class="splash-icon" src="/src-tauri/icons/logo.svg" width="72" height="72" alt="" />
+      <span class="splash-text" id="splash-text">Loading Cloufam…</span>
+    </div>
+    <div id="app"></div>
+    <script>
+      // Тот же выбор языка, что в src/lib/i18n.svelte.ts: сохранённый вручную, иначе системный.
+      (function () {
+        var saved = null;
+        try { saved = localStorage.getItem('cloufam.locale'); } catch (e) {}
+        var sys = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
+        var ru = saved ? saved === 'ru' : sys.indexOf('ru') === 0;
+        document.documentElement.lang = ru ? 'ru' : 'en';
+        document.getElementById('splash-text').textContent = ru ? 'Загрузка Cloufam…' : 'Loading Cloufam…';
+      })();
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+

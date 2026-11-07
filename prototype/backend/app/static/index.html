@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocalChatbot</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #1a1a2e; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; }
+header { background: #16213e; padding: 12px 20px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid #0f3460; }
+header h1 { font-size: 18px; color: #e94560; }
+#status { font-size: 12px; color: #888; }
+#models-btn { background: #0f3460; border: none; color: #e0e0e0; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+#models-btn:hover { background: #e94560; }
+#chat { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; line-height: 1.5; white-space: pre-wrap; }
+.msg.user { align-self: flex-end; background: #0f3460; border-bottom-right-radius: 4px; }
+.msg.bot { align-self: flex-start; background: #16213e; border-bottom-left-radius: 4px; }
+.msg.system { align-self: center; color: #888; font-size: 13px; font-style: italic; }
+.msg .memory { font-size: 11px; color: #666; margin-top: 6px; border-top: 1px solid #333; padding-top: 4px; }
+#input-area { padding: 12px 20px; background: #16213e; border-top: 1px solid #0f3460; display: flex; gap: 8px; }
+#msg-input { flex: 1; background: #1a1a2e; border: 1px solid #0f3460; color: #e0e0e0; padding: 10px; border-radius: 8px; resize: none; font-size: 14px; min-height: 42px; max-height: 120px; }
+#msg-input:focus { outline: none; border-color: #e94560; }
+#send-btn { background: #e94560; border: none; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+#send-btn:hover { background: #c73650; }
+#send-btn:disabled { background: #333; cursor: not-allowed; }
+#image-btn { background: #0f3460; border: none; color: #e0e0e0; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 16px; }
+#image-btn:hover { background: #1a4a8a; }
+#image-preview { display: none; position: relative; padding: 8px 20px; background: #16213e; }
+#image-preview img { max-height: 80px; border-radius: 4px; }
+#image-preview .remove { position: absolute; top: 4px; right: 24px; background: #e94560; border: none; color: white; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 12px; }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #555; border-top-color: #e94560; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#memory-panel { display: none; position: fixed; right: 0; top: 50px; bottom: 0; width: 300px; background: #16213e; border-left: 1px solid #0f3460; padding: 16px; overflow-y: auto; z-index: 10; }
+#memory-panel h3 { color: #e94560; margin-bottom: 8px; }
+#memory-panel .mem-item { background: #1a1a2e; padding: 8px; margin-bottom: 6px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+    <h1>LocalChatbot</h1>
+    <span id="status">connecting...</span>
+    <button id="models-btn" onclick="toggleModels()">Models</button>
+    <button id="models-btn" onclick="loadMemory()">Reindex</button>
+</header>
+<div id="chat"></div>
+<div id="image-preview"><img id="preview-img"><button class="remove" onclick="removeImage()">×</button></div>
+<div id="input-area">
+    <button id="image-btn" onclick="document.getElementById('file-input').click()">📎</button>
+    <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImage(this)">
+    <textarea id="msg-input" placeholder="Сообщение..." rows="1" onkeydown="handleKey(event)"></textarea>
+    <button id="send-btn" onclick="send()">Отправить</button>
+</div>
+<div id="memory-panel"><h3>Память</h3><div id="memory-list"></div></div>
+
+<script>
+const chat = document.getElementById('chat');
+const input = document.getElementById('msg-input');
+const sendBtn = document.getElementById('send-btn');
+const statusEl = document.getElementById('status');
+let currentImage = null;
+
+// Проверка здоровья
+async function checkHealth() {
+    try {
+        const r = await fetch('/health');
+        const d = await r.json();
+        statusEl.textContent = `${d.chat_model} | ${d.vision_model}`;
+        statusEl.style.color = '#4ecca3';
+    } catch { statusEl.textContent = 'offline'; statusEl.style.color = '#e94560'; }
+}
+checkHealth();
+setInterval(checkHealth, 30000);
+
+function addMsg(text, cls, memory) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + cls;
+    div.textContent = text;
+    if (memory && memory.length) {
+        const memDiv = document.createElement('div');
+        memDiv.className = 'memory';
+        memDiv.textContent = 'Память: ' + memory.join(' | ');
+        div.appendChild(memDiv);
+    }
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+}
+
+function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+}
+
+function handleImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        currentImage = { data: e.target.result.split(',')[1], name: file.name };
+        document.getElementById('preview-img').src = e.target.result;
+        document.getElementById('image-preview').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeImage() {
+    currentImage = null;
+    document.getElementById('image-preview').style.display = 'none';
+    document.getElementById('file-input').value = '';
+}
+
+async function send() {
+    const text = input.value.trim();
+    if (!text && !currentImage) return;
+
+    addMsg(text || '(изображение)', 'user');
+    input.value = '';
+    sendBtn.disabled = true;
+
+    const thinking = addMsg('...', 'bot');
+
+    try {
+        let resp;
+        if (currentImage) {
+            const form = new FormData();
+            form.append('message', text);
+            const blob = await fetch('data:image/png;base64,' + currentImage.data).then(r => r.blob());
+            form.append('image', blob, currentImage.name);
+            resp = await fetch('/chat/image', { method: 'POST', body: form });
+            removeImage();
+        } else {
+            resp = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+        }
+        const data = await resp.json();
+        thinking.remove();
+        addMsg(data.reply, 'bot', data.memory_used);
+    } catch (err) {
+        thinking.remove();
+        addMsg('Ошибка: ' + err.message, 'system');
+    }
+    sendBtn.disabled = false;
+    input.focus();
+}
+
+async function toggleModels() {
+    const panel = document.getElementById('memory-panel');
+    if (panel.style.display === 'block' && panel.dataset.mode === 'models') {
+        panel.style.display = 'none';
+        return;
+    }
+    try {
+        const r = await fetch('/models');
+        const d = await r.json();
+        document.getElementById('memory-list').innerHTML =
+            Object.entries(d).map(([k,v]) => `<div class="mem-item"><b>${k}:</b> ${v}</div>`).join('');
+        panel.style.display = 'block';
+        panel.dataset.mode = 'models';
+    } catch {}
+}
+
+async function loadMemory() {
+    addMsg('Индексация памяти...', 'system');
+    try {
+        const r = await fetch('/memory/load-files', { method: 'POST' });
+        const d = await r.json();
+        addMsg(`Загружено чанков: ${d.loaded_chunks}`, 'system');
+    } catch (err) {
+        addMsg('Ошибка индексации: ' + err.message, 'system');
+    }
+}
+
+input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+});
+input.focus();
+</script>
+</body>
+</html>

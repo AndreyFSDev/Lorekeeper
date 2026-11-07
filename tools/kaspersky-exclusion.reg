@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\KasperskyLab\protected\KIS\21.26\settings\Exclusions\Paths\{E8A3B4F1-5C2D-4A6B-9F0E-1D3C5B7A9E8F}]
+"Path"="Z:\\AImodels\\Lorekeeper\\runtime\\node"
+"Status"=dword:00000001
+"Mask"="*"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\KasperskyLab\protected\KIS\21.26\settings\Exclusions\Paths\{F9B4C5D2-6E3F-5B7C-A0F1-2E4D6C8B0F9A}]
+"Path"="Z:\\AImodels\\Lorekeeper\\runtime\\node\\node.exe"
+"Status"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\KasperskyLab\protected\KAV\21.26\settings\Exclusions\Paths\{E8A3B4F1-5C2D-4A6B-9F0E-1D3C5B7A9E8F}]
+"Path"="Z:\\AImodels\\Lorekeeper\\runtime\\node"
+"Status"=dword:00000001
+"Mask"="*"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\KasperskyLab\protected\KAV\21.26\settings\Exclusions\Paths\{F9B4C5D2-6E3F-5B7C-A0F1-2E4D6C8B0F9A}]
+"Path"="Z:\\AImodels\\Lorekeeper\\runtime\\node\\node.exe"
+"Status"=dword:00000001

@@ -1,0 +1,143 @@
+{
+  "tags": [
+    {
+      "id": "f0090000-0000-4000-8000-000000000000",
+      "name": "Оригинальные персонажи",
+      "folder_type": "OPEN",
+      "filter_state": "UNDEFINED",
+      "sort_order": 18,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(147, 197, 253, 0.35)",
+      "color2": "#ffffff",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "f00a0000-0000-4000-8000-000000000000",
+      "name": "Инструменты",
+      "folder_type": "OPEN",
+      "filter_state": "UNDEFINED",
+      "sort_order": 19,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(148, 163, 184, 0.35)",
+      "color2": "#ffffff",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-uncensored",
+      "name": "uncensored",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-russian",
+      "name": "russian",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-mudraya",
+      "name": "мудрая",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-romantichnaya",
+      "name": "романтичная",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-vysshaya-magiya",
+      "name": "высшая магия",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-hranitelnica-lora",
+      "name": "хранительница лора",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-ii-assistent",
+      "name": "ии-ассистент",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-kod-i-analiz",
+      "name": "код и анализ",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    },
+    {
+      "id": "t-pomoschnik",
+      "name": "помощник",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": null,
+      "is_hidden_on_character_card": false,
+      "color": "rgba(59, 130, 246, 0.2)",
+      "color2": "#93c5fd",
+      "create_date": 1789148270235
+    }
+  ],
+  "tag_map": {
+    "default_Seraphina.png": [
+      "f0090000-0000-4000-8000-000000000000",
+      "t-vysshaya-magiya",
+      "t-hranitelnica-lora",
+      "t-mudraya",
+      "t-romantichnaya",
+      "t-uncensored",
+      "t-russian"
+    ],
+    "default_Assistant.png": [
+      "f00a0000-0000-4000-8000-000000000000",
+      "t-ii-assistent",
+      "t-kod-i-analiz",
+      "t-pomoschnik",
+      "t-russian"
+    ]
+  }
+}

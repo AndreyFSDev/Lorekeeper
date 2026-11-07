@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- Background Canvas -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070913"/>
+      <stop offset="45%" stop-color="#0e1224"/>
+      <stop offset="100%" stop-color="#17122e"/>
+    </linearGradient>
+
+    <!-- Squircle Border with Specular Light -->
+    <linearGradient id="borderStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.95"/>
+      <stop offset="30%" stop-color="#818cf8" stop-opacity="0.85"/>
+      <stop offset="70%" stop-color="#c084fc" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1e1b4b" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <linearGradient id="topBevel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Core Volumetric Glow -->
+    <radialGradient id="ambientGlow" cx="50%" cy="48%" r="48%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.5"/>
+      <stop offset="35%" stop-color="#38bdf8" stop-opacity="0.26"/>
+      <stop offset="70%" stop-color="#9333ea" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="tomeGlow" cx="50%" cy="74%" r="35%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="55%" stop-color="#6366f1" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Astrolabe Orbits -->
+    <linearGradient id="orbit1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#818cf8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="orbit2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#a855f7" stop-opacity="0.85"/>
+      <stop offset="65%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Grimoire / Book of Lore -->
+    <linearGradient id="bookCoverLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14182b"/>
+      <stop offset="100%" stop-color="#0b0e1b"/>
+    </linearGradient>
+    <linearGradient id="bookCoverRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1638"/>
+      <stop offset="100%" stop-color="#0b0e1b"/>
+    </linearGradient>
+    <linearGradient id="pageBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a335c"/>
+      <stop offset="100%" stop-color="#101528"/>
+    </linearGradient>
+    <linearGradient id="pageMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="pageFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="bookmark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+
+    <!-- Gemstone Facets - Royal Cut Palette -->
+    <!-- Top Table Kite (Main Specular Face) -->
+    <linearGradient id="facetKite" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#e0f2fe"/>
+      <stop offset="70%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Lower Table Kite (Deep Radiant Facet) -->
+    <linearGradient id="facetLowerKite" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+
+    <!-- Left Crown Triangular Facet -->
+    <linearGradient id="facetCrownLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <!-- Right Crown Triangular Facet -->
+    <linearGradient id="facetCrownRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5d0fe"/>
+      <stop offset="45%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+
+    <!-- Left Girdle / Waist Facet -->
+    <linearGradient id="facetWaistLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="60%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+
+    <!-- Right Girdle / Waist Facet -->
+    <linearGradient id="facetWaistRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8b4fe"/>
+      <stop offset="60%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+
+    <!-- Left Lower Pavilion Facet -->
+    <linearGradient id="facetPavilionLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Right Lower Pavilion Facet -->
+    <linearGradient id="facetPavilionRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. SQUIRCLE CANVAS WITH INNER SPECULAR -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bg)"/>
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="none" stroke="url(#borderStroke)" stroke-width="5"/>
+  <rect x="18" y="18" width="476" height="238" rx="106" fill="url(#topBevel)"/>
+
+  <!-- 2. VOLUMETRIC ATMOSPHERE -->
+  <circle cx="256" cy="240" r="215" fill="url(#ambientGlow)"/>
+  <circle cx="256" cy="370" r="160" fill="url(#tomeGlow)"/>
+
+  <!-- 3. CELESTIAL ASTROLABE (BACK ORBITS) -->
+  <g opacity="0.9">
+    <ellipse cx="256" cy="235" rx="180" ry="54" transform="rotate(-24 256 235)"
+             fill="none" stroke="url(#orbit1)" stroke-width="3" stroke-dasharray="320 8 40 12"/>
+    <ellipse cx="256" cy="235" rx="172" ry="48" transform="rotate(24 256 235)"
+             fill="none" stroke="url(#orbit2)" stroke-width="2.5" stroke-dasharray="280 12 50 10"/>
+  </g>
+
+  <!-- 4. THE OPEN GRIMOIRE (TOME OF LORE) -->
+  <g id="grimoire">
+    <!-- Ambient Shadow Under Tome -->
+    <ellipse cx="256" cy="406" rx="155" ry="25" fill="#030408" opacity="0.75"/>
+
+    <!-- Left Book Cover -->
+    <path d="M256 385 C210 395 160 380 96 348 C108 335 125 320 152 322 C196 325 230 355 256 385 Z"
+          fill="url(#bookCoverLeft)" stroke="#222a47" stroke-width="3"/>
+
+    <!-- Right Book Cover -->
+    <path d="M256 385 C302 395 352 380 416 348 C404 335 387 320 360 322 C316 325 282 355 256 385 Z"
+          fill="url(#bookCoverRight)" stroke="#2b234d" stroke-width="3"/>
+
+    <!-- Left Layered Pages (Outer / Back Page) -->
+    <path d="M254 378 C204 380 158 360 104 334 C120 306 150 286 186 298 C216 308 238 344 254 378 Z"
+          fill="url(#pageBack)" stroke="#4338ca" stroke-width="1.8" opacity="0.9"/>
+
+    <!-- Right Layered Pages (Outer / Back Page) -->
+    <path d="M258 378 C308 380 354 360 408 334 C392 306 362 286 326 298 C296 308 274 344 258 378 Z"
+          fill="url(#pageBack)" stroke="#6366f1" stroke-width="1.8" opacity="0.9"/>
+
+    <!-- Left Luminous Page Wings -->
+    <path d="M252 370 C212 365 174 342 128 314 C140 280 170 248 206 270 C230 285 244 328 252 370 Z"
+          fill="url(#pageBack)" stroke="url(#pageMid)" stroke-width="3.5" stroke-linejoin="round"/>
+
+    <!-- Right Luminous Page Wings -->
+    <path d="M260 370 C300 365 338 342 384 314 C372 280 342 248 306 270 C282 285 268 328 260 370 Z"
+          fill="url(#pageBack)" stroke="url(#pageMid)" stroke-width="3.5" stroke-linejoin="round"/>
+
+    <!-- Inner Luminous Page Flares -->
+    <path d="M254 362 C226 352 195 330 156 300 C172 278 196 266 218 284 C236 299 248 332 254 362 Z"
+          fill="url(#pageFront)" opacity="0.45"/>
+    <path d="M258 362 C286 352 317 330 356 300 C340 278 316 266 294 284 C276 299 264 332 258 362 Z"
+          fill="url(#pageFront)" opacity="0.45"/>
+
+    <!-- Page Rim Energy Filaments -->
+    <path d="M128 314 C168 338 210 356 254 366 M384 314 C344 338 302 356 258 366"
+          fill="none" stroke="#bae6fd" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+
+    <!-- Glowing Rune Inscriptions on Pages (Mystic Text) -->
+    <path d="M152 314 Q186 328 222 346 M164 326 Q192 338 226 356 M176 338 Q198 348 230 366"
+          fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.5" stroke-dasharray="8 6 12 5 7 4"/>
+    <path d="M360 314 Q326 328 290 346 M348 326 Q320 338 286 356 M336 338 Q314 348 282 366"
+          fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" opacity="0.5" stroke-dasharray="10 5 8 4 12 5"/>
+
+    <!-- Central Silk Bookmark with Gold/Cyan Terminal -->
+    <path d="M253 365 L253 425 L256 418 L259 425 L259 365 Z" fill="url(#bookmark)"/>
+    <polygon points="256,412 259,425 256,418 253,425" fill="#ffffff" opacity="0.85"/>
+  </g>
+
+  <!-- 5. THE MULTIFACETED LORE CRYSTAL (ROYAL FANTASY CUT) -->
+  <g id="crystal">
+    <!-- Pavilion (Lower) Left & Right Far Flanks -->
+    <polygon points="158,230 208,245 212,275 256,356" fill="url(#facetPavilionLeft)"/>
+    <polygon points="354,230 304,245 300,275 256,356" fill="url(#facetPavilionRight)"/>
+
+    <!-- Girdle (Waist) Flank Facets -->
+    <polygon points="172,190 158,230 208,245 214,175" fill="url(#facetWaistLeft)"/>
+    <polygon points="298,175 304,245 354,230 340,190" fill="url(#facetWaistRight)"/>
+
+    <!-- Crown (Upper) Flank Triangular Facets -->
+    <polygon points="256,88 172,190 214,175" fill="url(#facetCrownLeft)"/>
+    <polygon points="256,88 298,175 340,190" fill="url(#facetCrownRight)"/>
+
+    <!-- Center Lower Radiant Kite Facet -->
+    <polygon points="256,235 212,275 256,356 300,275" fill="url(#facetLowerKite)"/>
+
+    <!-- Center Upper Brilliant Table Kite (Crown Jewel) -->
+    <polygon points="256,88 214,175 256,235 298,175" fill="url(#facetKite)"/>
+
+    <!-- Specular Diamond Edges & Bevel Ridges -->
+    <polyline points="256,88 214,175 256,235 298,175 256,88" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.9"/>
+    <polyline points="256,235 212,275 256,356 300,275 256,235" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.85"/>
+    <line x1="256" y1="88" x2="256" y2="356" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0.9"/>
+
+    <polyline points="256,88 172,190 158,230 208,245 212,275 256,356" fill="none" stroke="#bae6fd" stroke-width="1.8" stroke-opacity="0.75"/>
+    <polyline points="256,88 340,190 354,230 304,245 300,275 256,356" fill="none" stroke="#f0abfc" stroke-width="1.8" stroke-opacity="0.7"/>
+
+    <line x1="214" y1="175" x2="172" y2="190" stroke="#bae6fd" stroke-width="1.6" stroke-opacity="0.8"/>
+    <line x1="298" y1="175" x2="340" y2="190" stroke="#f0abfc" stroke-width="1.6" stroke-opacity="0.8"/>
+    <line x1="256" y1="235" x2="208" y2="245" stroke="#38bdf8" stroke-width="1.6" stroke-opacity="0.85"/>
+    <line x1="256" y1="235" x2="304" y2="245" stroke="#c084fc" stroke-width="1.6" stroke-opacity="0.85"/>
+
+    <!-- Brilliant Nexus Core Flare (Star of Wisdom) -->
+    <circle cx="256" cy="235" r="16" fill="#38bdf8" opacity="0.45"/>
+    <path d="M256 221 C256 230 252 235 242 235 C252 235 256 240 256 249 C256 240 260 235 270 235 C260 235 256 230 256 221 Z"
+          fill="#ffffff"/>
+    <circle cx="256" cy="235" r="3.5" fill="#ffffff"/>
+  </g>
+
+  <!-- 6. CELESTIAL FOREGROUND ORBIT NODES -->
+  <g id="astrolabe-front">
+    <circle cx="112" cy="274" r="5.5" fill="#38bdf8"/>
+    <circle cx="112" cy="274" r="2.5" fill="#ffffff"/>
+    <circle cx="396" cy="288" r="4.5" fill="#c084fc"/>
+    <circle cx="396" cy="288" r="2" fill="#ffffff"/>
+
+    <!-- Floating Lore Motes (Sparks of Knowledge) -->
+    <circle cx="180" cy="278" r="2.5" fill="#67e8f9" opacity="0.85"/>
+    <circle cx="332" cy="272" r="2.5" fill="#f0abfc" opacity="0.85"/>
+    <circle cx="212" cy="138" r="2" fill="#ffffff" opacity="0.9"/>
+    <circle cx="300" cy="132" r="2" fill="#ffffff" opacity="0.9"/>
+  </g>
+
+  <!-- 7. RADIANT STARS OF WISDOM (✦ CONSTELLATIONS) -->
+  <g id="starlight">
+    <!-- Zenith Crown Star -->
+    <path d="M256 56 C256 68 251 72 239 72 C251 72 256 76 256 88 C256 76 261 72 273 72 C261 72 256 68 256 56 Z"
+          fill="#ffffff"/>
+    <circle cx="256" cy="72" r="14" fill="#38bdf8" opacity="0.35"/>
+
+    <!-- Left High Star -->
+    <path d="M138 142 C138 150 134 153 126 153 C134 153 138 156 138 164 C138 156 142 153 150 153 C142 153 138 150 138 142 Z"
+          fill="#93c5fd"/>
+
+    <!-- Right High Star -->
+    <path d="M374 134 C374 142 370 145 362 145 C370 145 374 148 374 156 C374 148 378 145 386 145 C378 145 374 142 374 134 Z"
+          fill="#d8b4fe"/>
+
+    <!-- Left Mid Star -->
+    <path d="M106 242 C106 247 103 249 98 249 C103 249 106 251 106 256 C106 251 109 249 114 249 C109 249 106 247 106 242 Z"
+          fill="#38bdf8" opacity="0.85"/>
+
+    <!-- Right Mid Star -->
+    <path d="M408 242 C408 247 405 249 400 249 C405 249 408 251 408 256 C408 251 411 249 416 249 C411 249 408 247 408 242 Z"
+          fill="#c084fc" opacity="0.85"/>
+
+    <!-- Constellation Guide Lines -->
+    <line x1="138" y1="153" x2="256" y2="72" stroke="#60a5fa" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.3"/>
+    <line x1="374" y1="145" x2="256" y2="72" stroke="#c084fc" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.3"/>
+  </g>
+</svg>
